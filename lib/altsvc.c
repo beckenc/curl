@@ -25,7 +25,7 @@
  */
 #include "curl_setup.h"
 
-#if !defined(CURL_DISABLE_HTTP) && defined(USE_ALTSVC)
+#if !defined(CURL_DISABLE_HTTP) && !defined(CURL_DISABLE_ALTSVC)
 #include <curl/curl.h>
 #include "urldata.h"
 #include "altsvc.h"
@@ -640,4 +640,4 @@ bool Curl_altsvc_lookup(struct altsvcinfo *asi,
   return FALSE;
 }
 
-#endif /* CURL_DISABLE_HTTP || USE_ALTSVC */
+#endif /* !CURL_DISABLE_HTTP && !CURL_DISABLE_ALTSVC */
