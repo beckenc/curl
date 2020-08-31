@@ -1,0 +1,62 @@
+<testcase>
+<info>
+<keywords>
+unittest
+HSTS
+</keywords>
+</info>
+
+<client>
+<server>
+none
+</server>
+<features>
+unittest
+HSTS
+</features>
+
+# This date is exactly "20190124 22:34:21" UTC
+<setenv>
+CURL_TIME=1548369261
+</setenv>
+<name>
+HSTS
+</name>
+<command>
+-
+</command>
+</client>
+
+<verify>
+<stdout>
+example.com [example.com]: 1579905261
+example.com [example.com]: 1569905261
+example.com [example.com]: 1569905261
+example.com [example.com]: 1569905261 includeSubDomains
+example.org [example.org]: 1579905261
+Input 5: error 43
+Input 6: error 43
+this.example [this.example]: 1548400797
+Input 8: this.example is not HSTS
+Input 9: error 43
+Input 10: error 43
+Input 11: error 43
+3.example.com [example.com]: 1569905261 includeSubDomains
+3.example.com [example.com]: 1569905261 includeSubDomains
+foo.example.com [example.com]: 1569905261 includeSubDomains
+Input 15: foo.xample.com is not HSTS
+expire.example [expire.example]: 1548369268
+Number of entries: 3
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+expire.example [expire.example]: 1548369268
+Input 107: expire.example is not HSTS
+Input 108: expire.example is not HSTS
+Input 109: expire.example is not HSTS
+</stdout>
+</verify>
+</testcase>

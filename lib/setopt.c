@@ -45,6 +45,7 @@
 #include "setopt.h"
 #include "multiif.h"
 #include "altsvc.h"
+#include "hsts.h"
 
 /* The last 3 #include files should be in this order */
 #include "curl_printf.h"
@@ -2847,6 +2848,20 @@ CURLcode Curl_vsetopt(struct Curl_easy *data, CURLoption option, va_list param)
     data->set.trailer_data = va_arg(param, void *);
 #endif
     break;
+#ifdef USE_HSTS
+  case CURLOPT_HSTS:
+    arg = va_arg(param, long);
+    if(arg & CURLHSTS_ENABLE) {
+      if(!data->hsts) {
+        data->hsts = Curl_hsts_init();
+        if(!data->hsts)
+          return CURLE_OUT_OF_MEMORY;
+      }
+    }
+    else
+      Curl_hsts_cleanup(&data->hsts);
+    break;
+#endif
 #ifdef USE_ALTSVC
   case CURLOPT_ALTSVC:
     if(!data->asi) {

@@ -1901,6 +1901,9 @@ struct Curl_easy {
                                   NOTE that the 'cookie' field in the
                                   UserDefined struct defines if the "engine"
                                   is to be used or not. */
+#ifdef USE_HSTS
+  struct hsts *hsts;
+#endif
 #ifdef USE_ALTSVC
   struct altsvcinfo *asi;      /* the alt-svc cache */
 #endif
