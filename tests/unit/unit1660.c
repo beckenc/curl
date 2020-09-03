@@ -74,7 +74,7 @@ static const struct testit headers[] = {
   { "2.example.com", NULL,
     "max-age=\"21536000\"; includeSubDomains; includeSubDomains;",
     CURLE_BAD_FUNCTION_ARGUMENT },
-  /* use a unknown directive "include"m that should be ignored */
+  /* use a unknown directive "include" that should be ignored */
   { "3.example.com", NULL, "max-age=\"21536000\"; include; includeSubDomains;",
     CURLE_OK },
   /* remove the "3.example.com" one, should still match the example.com */
@@ -82,6 +82,16 @@ static const struct testit headers[] = {
     CURLE_OK },
   { "-", "foo.example.com", NULL, CURLE_OK},
   { "-", "foo.xample.com", NULL, CURLE_OK},
+
+  /* should not match */
+  { "example.net", "forexample.net", "max-age=\"31536000\"\r\n", CURLE_OK },
+
+  /* should not match either, since forexample.net is not in the example.net
+     domain */
+  { "example.net", "forexample.net",
+    "max-age=\"31536000\"; includeSubDomains\r\n", CURLE_OK },
+  /* remove example.net again */
+  { "example.net", NULL, "max-age=\"0\"; includeSubDomains\r\n", CURLE_OK },
 
   /* make this live for 7 seconds */
   { "expire.example", NULL, "max-age=\"7\"\r\n", CURLE_OK },

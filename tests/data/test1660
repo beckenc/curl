@@ -45,6 +45,9 @@ Input 11: error 43
 3.example.com [example.com]: 1569905261 includeSubDomains
 foo.example.com [example.com]: 1569905261 includeSubDomains
 Input 15: foo.xample.com is not HSTS
+Input 16: forexample.net is not HSTS
+Input 17: forexample.net is not HSTS
+Input 18: example.net is not HSTS
 expire.example [expire.example]: 1548369268
 Number of entries: 3
 expire.example [expire.example]: 1548369268

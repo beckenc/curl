@@ -225,13 +225,14 @@ struct stsentry *Curl_hsts(struct hsts *h, const char *hostname,
       }
       if(subdomain && sts->includeSubDomains) {
         size_t ntail = strlen(sts->host);
-        if(ntail <= hlen) {
+        if(ntail < hlen) {
           size_t offs = hlen - ntail;
-          if(Curl_strncasecompare(&hostname[offs], sts->host, ntail))
+          if((hostname[offs-1] == '.') &&
+             Curl_strncasecompare(&hostname[offs], sts->host, ntail))
             return sts;
         }
       }
-      else if(Curl_strcasecompare(hostname, sts->host))
+      if(Curl_strcasecompare(hostname, sts->host))
         return sts;
     }
   }
