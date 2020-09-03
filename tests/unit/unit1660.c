@@ -118,6 +118,7 @@ UNITTEST_START
   struct hsts *h = Curl_hsts_init();
   int i;
   const char *chost;
+  CURL *easy;
   if(!h)
     return 1;
 
@@ -150,6 +151,12 @@ UNITTEST_START
     e = Curl_hsts(h, chost, TRUE);
     showsts(e, i, chost);
     deltatime++; /* another second passed */
+  }
+
+  easy = curl_easy_init();
+  if(easy) {
+    (void)Curl_hsts_save(easy, h, "log/hsts1660");
+    curl_easy_cleanup(easy);
   }
 
   Curl_hsts_cleanup(&h);
